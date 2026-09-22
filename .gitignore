@@ -1,0 +1,169 @@
+# ============================================
+# DEPENDENCIES
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*.local
+
+# ============================================
+# BUILD OUTPUT
+# ============================================
+dist/
+build/
+*.tsbuildinfo
+.cache/
+
+# ============================================
+# LOGS
+# ============================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ============================================
+# TESTING
+# ============================================
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+junit.xml
+
+# ============================================
+# UPLOADS & TEMPORARY FILES
+# ============================================
+uploads/*
+!uploads/.gitkeep
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ============================================
+# PRISMA
+# ============================================
+prisma/migrations/*_migration_lock.toml
+# Keep migrations but ignore lock file
+
+# ============================================
+# DATABASE
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# ============================================
+# IDE & EDITOR
+# ============================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# JetBrains IDEs
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# ============================================
+# OS FILES
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================
+# DOCKER
+# ============================================
+.dockerignore
+docker-compose.override.yml
+.docker/
+
+# ============================================
+# CI/CD
+# ============================================
+.github/workflows/*.local.yml
+
+# ============================================
+# MISC
+# ============================================
+.eslintcache
+*.pid
+*.seed
+*.pid.lock
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# ============================================
+# SECURITY & SENSITIVE DATA
+# ============================================
+*.pem
+*.key
+*.cert
+*.crt
+secrets/
+credentials/
+
+# ============================================
+# BACKUP FILES
+# ============================================
+*.bak
+*.backup
+*.old
+*_backup
+*_old
+
+# ============================================
+# ARCHIVES
+# ============================================
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+/src/generated/prisma
+
+/generated/prisma
+
+/generated/prisma
