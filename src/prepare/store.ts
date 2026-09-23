@@ -52,6 +52,13 @@ export async function persistPage(args: {
   await fs.rm(directory, { recursive: true, force: true });
   await fs.mkdir(directory, { recursive: true });
 
+   
+ let htmlFile: string | null = null;
+if (captured.html) {
+  htmlFile = `${args.slug}.html`;
+  await fs.writeFile(path.join(directory, htmlFile), captured.html, "utf8");
+}
+
   const snapshots: SnapshotMeta[] = [];
   for (const tile of captured.tiles) {
     const file = `snapshot-${tile.order}.png`;
@@ -84,6 +91,7 @@ export async function persistPage(args: {
     truncated: captured.truncated,
     warnings: captured.warnings,
     directory,
+    htmlFile,
     snapshots,
   };
   await writeJsonAtomic(path.join(directory, "metadata.json"), result);

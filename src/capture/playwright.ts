@@ -170,7 +170,11 @@ async function screenshotTiles(
     }
     const pageHeight = Math.max(1, Math.min(measured, req.maxPageHeight));
     const pageWidth = req.viewport.width;
-
+    const html = await page.content().catch((cause) => {
+     warnings.push(`Could not capture page HTML: ${cause instanceof Error ? cause.message : String(cause)}`);
+    return "";
+});
+const bodyOnlyHtml = html.replace(/<head[^>]*>[\s\S]*?<\/head>/i, "");
     const tiles = [];
     for (const plan of planTiles(pageHeight, req.tile)) {
       const data = await page.screenshot({
@@ -185,6 +189,7 @@ async function screenshotTiles(
     return {
       finalUrl: page.url(),
       title: await page.title(),
+      html: bodyOnlyHtml,
       pageWidth,
       pageHeight,
       truncated,

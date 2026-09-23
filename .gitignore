@@ -167,3 +167,5 @@ credentials/
 /generated/prisma
 
 /generated/prisma
+
+.snapshots

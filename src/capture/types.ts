@@ -20,6 +20,7 @@ export interface CapturedTile {
 export interface CapturedPage {
   finalUrl: string;
   title: string;
+  html: string;
   pageWidth: number;
   pageHeight: number;
   truncated: boolean;

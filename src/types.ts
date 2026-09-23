@@ -74,6 +74,7 @@ export interface PageSnapshotSuccess {
   warnings: string[];
   /** Absolute path of the directory holding the PNGs and metadata.json. */
   directory: string;
+  htmlFile: string | null;
   snapshots: SnapshotMeta[];
 }
 
