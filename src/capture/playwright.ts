@@ -132,6 +132,51 @@ async function settle(page: Page, req: CaptureRequest, warnings: string[]): Prom
             }),
         ),
       );
+//       await page.evaluate(() => {
+//     // Remove non-content elements
+//     document.querySelectorAll(`
+//         head,
+//         script,
+//         style,
+//         svg,
+//         noscript,
+//         template,
+//         iframe,
+//         canvas
+//     `).forEach((el) => el.remove());
+
+//     // Remove common UI/tracking elements
+//     document.querySelectorAll(`
+//         [hidden],
+//         [aria-hidden="true"]
+//     `).forEach((el) => el.remove());
+
+//     // Clean attributes
+//     document.querySelectorAll("*").forEach((el) => {
+//         for (const attr of [...el.attributes]) {
+//             const name = attr.name.toLowerCase();
+
+//             if (
+//                 name === "class" ||
+//                 name === "id" ||
+//                 name === "style" ||
+//                 name.startsWith("on") ||
+//                 name.startsWith("data-") ||
+//                 name.startsWith("aria-") ||
+//                 name === "itemprop" ||
+//                 name === "itemscope" ||
+//                 name === "itemtype" ||
+//                 name === "itemid" ||
+//                 name === "itemref"
+//             ) {
+//                 el.removeAttribute(attr.name);
+//             }
+//         }
+//     });
+// });
+
+const bodyOnlyHtml = await page.content();
+
       await Promise.race([loaded, new Promise((r) => setTimeout(r, budget))]);
       await document.fonts?.ready;
     }, remaining());
@@ -170,11 +215,23 @@ async function screenshotTiles(
     }
     const pageHeight = Math.max(1, Math.min(measured, req.maxPageHeight));
     const pageWidth = req.viewport.width;
-    const html = await page.content().catch((cause) => {
-     warnings.push(`Could not capture page HTML: ${cause instanceof Error ? cause.message : String(cause)}`);
+   const html = await page.content().catch((cause) => {
+    warnings.push(
+        `Could not capture page HTML: ${
+            cause instanceof Error ? cause.message : String(cause)
+        }`
+    );
     return "";
 });
-const bodyOnlyHtml = html.replace(/<head[^>]*>[\s\S]*?<\/head>/i, "");
+
+const bodyOnlyHtml = html
+    .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, "")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, "")
+    .replace(/\s+class\s*=\s*(['"])[\s\S]*?\1/gi, "")
+    .replace(/\s+style\s*=\s*(['"])[\s\S]*?\1/gi, "");
+
+
     const tiles = [];
     for (const plan of planTiles(pageHeight, req.tile)) {
       const data = await page.screenshot({
